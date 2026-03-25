@@ -3,6 +3,7 @@ package com.jose.habittracker.controller;
 import com.jose.habittracker.model.Usuario;
 import com.jose.habittracker.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +32,11 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public Usuario update (@PathVariable Long id, @RequestBody Usuario usuario) {
         return usuarioService.updateUsuario(id, usuario);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> encontrarPorId(@PathVariable Long id) {
+        return usuarioService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
