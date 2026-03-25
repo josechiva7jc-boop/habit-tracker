@@ -22,12 +22,14 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.createUsuario(usuario);
+    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevo = usuarioService.createUsuario(usuario);
+        return ResponseEntity.status(201).body(nuevo);
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         usuarioService.deleteUsuario(id);
+        return ResponseEntity.noContent().build();
     }
     @PutMapping("/{id}")
     public Usuario update (@PathVariable Long id, @RequestBody Usuario usuario) {
