@@ -1,6 +1,7 @@
 package com.jose.habittracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuarios")
@@ -10,7 +11,9 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;
+    @NotBlank(message = "El email no puede estar vacío")
     private String email;
 
     public Usuario(String nombre, String email) {
