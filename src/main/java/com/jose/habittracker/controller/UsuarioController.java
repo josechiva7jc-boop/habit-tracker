@@ -24,4 +24,12 @@ public class UsuarioController {
     public Usuario createUsuario(@RequestBody Usuario usuario) {
         return usuarioService.createUsuario(usuario);
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        usuarioService.deleteUsuario(id);
+    }
+    @PutMapping("/{id}")
+    public Usuario update (@PathVariable Long id, @RequestBody Usuario usuario) {
+        return usuarioService.updateUsuario(id, usuario);
+    }
 }

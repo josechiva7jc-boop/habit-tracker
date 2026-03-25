@@ -4,6 +4,7 @@ import com.jose.habittracker.model.Usuario;
 import com.jose.habittracker.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -15,10 +16,22 @@ public class UsuarioService {
     private UsuarioRepository repository;
 
     public List<Usuario> getAllUsuarios() {
-         return repository.findAll();
+        return repository.findAll();
     }
 
     public Usuario createUsuario(Usuario usuario) {
         return repository.save(usuario);
+    }
+
+    public void deleteUsuario(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Usuario updateUsuario(Long id, Usuario usuario) {
+        Usuario existente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        existente.setNombre(usuario.getNombre());
+        existente.setEmail(usuario.getEmail());
+        return repository.save(existente);
     }
 }
