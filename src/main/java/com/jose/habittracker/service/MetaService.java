@@ -18,4 +18,14 @@ public class MetaService {
     public Meta create (Meta meta) {
         return repository.save(meta);
     }
+    public void deleteMeta (Long id) {
+        repository.deleteById(id);
+    }
+    public Meta updateMeta(Long id, Meta meta) {
+        Meta existente = repository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Meta no encontrada"));
+        existente.setTitulo(meta.getTitulo());
+        existente.setDescripcion(meta.getDescripcion());
+        return repository.save(existente);
+    }
 }

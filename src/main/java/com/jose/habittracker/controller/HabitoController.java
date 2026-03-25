@@ -23,4 +23,12 @@ public class HabitoController {
     public Habito create(@RequestBody Habito habito) {
         return habitoservice.create(habito);
     }
+    @PutMapping("/{id}")
+    public Habito update(@PathVariable Long id, @RequestBody Habito habito) {
+        return habitoservice.update(id, habito);
+    }
+    @DeleteMapping("/{id}")
+    public void delete (@PathVariable Long id) {
+        habitoservice.delete(id);
+    }
 }
