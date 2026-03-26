@@ -15,10 +15,14 @@ public class Meta {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-    public Meta(String titulo, Usuario usuario) {
+    public Meta(String titulo, Usuario usuario, Categoria categoria) {
         this.titulo = titulo;
         this.usuario = usuario;
+        this.categoria = categoria;
     }
     public Meta() {
     }
@@ -33,6 +37,10 @@ public class Meta {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
     public void setTitulo(String titulo) {
@@ -53,6 +61,10 @@ public class Meta {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
 
