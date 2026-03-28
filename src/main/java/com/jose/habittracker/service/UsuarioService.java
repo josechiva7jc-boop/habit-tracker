@@ -39,6 +39,6 @@ public class UsuarioService {
     }
 
     public List<Usuario> getByNombre (String nombre) {
-        return repository.findByNombre(nombre);
+        return repository.findByNombreContainingIgnoreCase(nombre);
     }
 }
