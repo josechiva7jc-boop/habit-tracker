@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -34,8 +33,9 @@ public class UsuarioService {
         existente.setEmail(usuario.getEmail());
         return repository.save(existente);
     }
-    public Optional<Usuario> getById(Long id) {
-        return repository.findById(id);
+    public Usuario getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
     public List<Usuario> getByNombre (String nombre) {

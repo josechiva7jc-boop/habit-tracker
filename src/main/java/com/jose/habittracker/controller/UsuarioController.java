@@ -38,9 +38,7 @@ public class UsuarioController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> encontrarPorId(@PathVariable Long id) {
-        return usuarioService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(usuarioService.getById(id));
     }
     @GetMapping("/buscar")
     public List<Usuario> findByNombre (@RequestParam String nombre) {
