@@ -42,4 +42,8 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/buscar")
+    public List<Usuario> findByNombre (@RequestParam String nombre) {
+        return usuarioService.getByNombre(nombre);
+    }
 }

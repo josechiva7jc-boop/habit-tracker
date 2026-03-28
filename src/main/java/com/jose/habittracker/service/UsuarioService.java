@@ -37,4 +37,8 @@ public class UsuarioService {
     public Optional<Usuario> getById(Long id) {
         return repository.findById(id);
     }
+
+    public List<Usuario> getByNombre (String nombre) {
+        return repository.findByNombre(nombre);
+    }
 }
