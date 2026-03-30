@@ -4,6 +4,7 @@ import com.jose.habittracker.model.Usuario;
 import com.jose.habittracker.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,11 @@ public class UsuarioController {
     @GetMapping("/buscar")
     public List<Usuario> findByNombre (@RequestParam String nombre) {
         return usuarioService.getByNombre(nombre);
+    }
+    @GetMapping("/paginado")
+    public Page<Usuario> getAllPaginado(
+            @RequestParam (defaultValue = "0") int page,
+            @RequestParam (defaultValue = "10") int size) {
+        return usuarioService.getAllPaginado(page, size);
     }
 }

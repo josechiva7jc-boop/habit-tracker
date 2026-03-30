@@ -3,6 +3,9 @@ package com.jose.habittracker.service;
 import com.jose.habittracker.model.Usuario;
 import com.jose.habittracker.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +43,9 @@ public class UsuarioService {
 
     public List<Usuario> getByNombre (String nombre) {
         return repository.findByNombreContainingIgnoreCase(nombre);
+    }
+    public Page<Usuario> getAllPaginado(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 }
