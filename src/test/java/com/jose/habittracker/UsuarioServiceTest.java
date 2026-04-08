@@ -46,4 +46,22 @@ public class UsuarioServiceTest {
         // ACT Y ASSERT
         assertThrows(RuntimeException.class, () -> usuarioService.getById(999L));
     }
-}
+
+        @Test
+        void create_usuario_devuelve_usuario_guardado() {
+            // ARRANGE — prepara los datos
+        Usuario usuario = new Usuario(2L, "Marcos", "marcos@email.com");
+        when(repository.save(usuario)).thenReturn(usuario);
+
+
+            // ACT — llama al service
+        Usuario resultado = usuarioService.createUsuario(usuario);
+
+
+            // ASSERT — comprueba el resultado
+        assertEquals("Marcos", resultado.getNombre());
+        assertEquals("marcos@email.com", resultado.getEmail());
+
+
+        }
+    }
