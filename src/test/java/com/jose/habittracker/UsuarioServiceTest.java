@@ -76,4 +76,19 @@ public class UsuarioServiceTest {
         //ASSERT
         verify(repository).deleteById(1L);
     }
+    @Test
+    void update_usuario_devuelve_usuario_actualizado() {
+        // ARRANGE
+        Usuario existente = new Usuario(1L, "Juan", "juan@email.com");
+        Usuario usuario = new Usuario(1L, "Juan Actualizado", "nuevo@email.com");
+        when(repository.findById(1L)).thenReturn(Optional.of(existente));
+        when(repository.save(existente)).thenReturn(existente);
+
+        //ACT
+        Usuario resultado = usuarioService.updateUsuario(1L, usuario);
+
+        // ASSERT
+        assertEquals("Juan Actualizado", resultado.getNombre());
+        assertEquals("nuevo@email.com", resultado.getEmail());
+    }
 }
