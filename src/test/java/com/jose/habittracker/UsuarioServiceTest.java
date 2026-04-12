@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,7 +28,7 @@ public class UsuarioServiceTest {
     @Test
     void getById_usuarioExiste_devuelveUsuario() {
         //ARRANGE
-        Usuario usuario = new Usuario (1L, "Jose", "jose@email.com");
+        Usuario usuario = new Usuario(1L, "Jose", "jose@email.com");
         when(repository.findById(1L)).thenReturn(Optional.of(usuario));
 
         //ACT
@@ -47,21 +48,32 @@ public class UsuarioServiceTest {
         assertThrows(RuntimeException.class, () -> usuarioService.getById(999L));
     }
 
-        @Test
-        void create_usuario_devuelve_usuario_guardado() {
-            // ARRANGE — prepara los datos
+    @Test
+    void create_usuario_devuelve_usuario_guardado() {
+        // ARRANGE — prepara los datos
         Usuario usuario = new Usuario(2L, "Marcos", "marcos@email.com");
         when(repository.save(usuario)).thenReturn(usuario);
 
 
-            // ACT — llama al service
+        // ACT — llama al service
         Usuario resultado = usuarioService.createUsuario(usuario);
 
 
-            // ASSERT — comprueba el resultado
+        // ASSERT — comprueba el resultado
         assertEquals("Marcos", resultado.getNombre());
         assertEquals("marcos@email.com", resultado.getEmail());
 
 
-        }
     }
+
+    @Test
+    void delete_usuario_llama_deleteBiId() {
+        // ARRANGE
+
+        //ACT
+        usuarioService.deleteUsuario(1L);
+
+        //ASSERT
+        verify(repository).deleteById(1L);
+    }
+}
